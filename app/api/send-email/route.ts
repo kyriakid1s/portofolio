@@ -2,16 +2,13 @@ import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
 export async function POST(request: Request) {
-    console.log('💥 send-email handler hit');
-    const text = await request.text();
-    console.log('💥 raw body:', text);
+
     let body;
     try {
-        body = JSON.parse(text);
+        body = await request.json();
     } catch (err) {
-        const raw = JSON.parse(text);
-        console.error('Failed to parse JSON. Raw body:', raw);
-        return NextResponse.json({ success: false, message: 'Invalid JSON' }, { status: 400 });
+        ;
+        return NextResponse.json({ success: false, message: err }, { status: 400 });
     }
     const { name, email, message } = body
 

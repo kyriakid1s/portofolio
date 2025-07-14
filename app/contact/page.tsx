@@ -20,7 +20,8 @@ export default function Contact() {
         e.preventDefault()
         setIsSubmitting(true)
         setSubmitMessage({ text: '', isError: false })
-
+        console.log('Submitting form data:', formData)
+        console.log('Submitting form data json:', JSON.stringify(formData))
         try {
             const response = await fetch('/api/send-email', {
                 method: 'POST',
