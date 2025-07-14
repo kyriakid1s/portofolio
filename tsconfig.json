@@ -29,11 +29,13 @@
     }
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "lib/posts.ts"
+    "app/page.js",
+    "compoments/TerminalWindows.js",
+    "next-env.d.ts",
+    "out/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
