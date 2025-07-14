@@ -44,6 +44,7 @@ export default function Contact() {
             setFormData({ name: '', email: '', message: '' })
 
         } catch (error) {
+            console.log('Error sending message:', error)
             setSubmitMessage({
                 text: error instanceof Error ? error.message : 'Failed to send message',
                 isError: true
