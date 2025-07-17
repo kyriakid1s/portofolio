@@ -4,7 +4,7 @@ export default function Header() {
     return (
         <header className="bg-code-bg border-b border-terminal-green/20">
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-                <Link href="/" className="text-terminal-green text-xl font-bold hover:text-white transition">
+                <Link href="/" className="text-terminal-green text-xl font-bold  transition">
                     $ D. Kyriakidis
                 </Link>
                 <nav className="hidden md:flex space-x-6">

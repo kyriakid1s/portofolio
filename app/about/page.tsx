@@ -74,11 +74,7 @@ async function developWithQuality() {
                                     <span>{skill.name}</span>
                                     <span>{skill.level}%</span>
                                 </div>
-                                <div className="w-full bg-gray-700 rounded-full h-2.5">
-                                    <div
-                                        className="bg-terminal-green h-2.5 rounded-full"
-                                        style={{ width: `${skill.level}%` }}
-                                    ></div>
+                                <div style={{ width: `${skill.level}%` }} className=" bg-gray-700 rounded-full h-2.5" >
                                 </div>
                             </div>
                         ))}
@@ -126,7 +122,7 @@ async function developWithQuality() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             <section>
                 <h2 className="text-2xl font-bold mb-6">Professional Experience</h2>
@@ -143,6 +139,6 @@ async function developWithQuality() {
                     ))}
                 </div>
             </section>
-        </div>
+        </div >
     )
 }

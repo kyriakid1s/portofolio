@@ -1,5 +1,4 @@
 import Terminal from '@/components/Terminal'
-import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -14,15 +13,15 @@ export default function Home() {
           Specializing in Node.js, Python, databases, and cloud infrastructure.
         </p>
         <div className="flex space-x-4">
-          <button className="bg-terminal-green text-terminal-black px-4 py-2 rounded hover:bg-green-600 transition">
+          <a href="/projects"><button className="bg-terminal-green text-terminal-black px-4 py-2 rounded hover:bg-green-600 transition" >
             View Projects
-          </button>
-          <button className="border border-terminal-green px-4 py-2 rounded hover:bg-gray-500 transition">
+          </button></a>
+          <a href='/contact'><button className="border border-terminal-green px-4 py-2 rounded hover:bg-gray-500 transition">
             Contact Me
-          </button>
+          </button></a>
         </div>
       </div>
-      <div className="h-[45vh]  p-4">
+      <div className="h-auto  p-4">
         <Terminal />
       </div>
     </div>
