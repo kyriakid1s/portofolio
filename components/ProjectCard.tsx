@@ -1,12 +1,12 @@
 import Link from 'next/link'
+import { ReactNode } from 'react'
 
 export default function ProjectCard({ project }: {
     project: {
         title: string
-        description: string
+        description: ReactNode
         technologies: string[]
         githubUrl: string
-        liveUrl: string
     }
 }) {
     return (
@@ -26,11 +26,6 @@ export default function ProjectCard({ project }: {
                 <Link href={project.githubUrl} target='_blank' className="text-terminal-green hover:underline">
                     View Code
                 </Link>
-                {project.liveUrl && (
-                    <Link href={project.liveUrl} className="text-terminal-green hover:underline">
-                        Live Demo
-                    </Link>
-                )}
             </div>
         </div>
     )
