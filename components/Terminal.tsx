@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from 'react'
 import { FiTerminal, FiX, FiMinus, FiMaximize2 } from 'react-icons/fi'
+import { createPortal } from 'react-dom'
 
 type Command = {
     description: string
@@ -148,8 +149,12 @@ export default function AppTerminal() {
         }
     }
 
-    return (
-        <div className="flex flex-col h-[500px] w-full max-w-3xl bg-gray-900 rounded-lg overflow-hidden border border-gray-700 shadow-xl">
+    const [close, setClose] = useState(false)
+    const [fullscreen, setFullscreen] = useState(false)
+
+
+    const content = (
+        <div className={`flex flex-col  bg-gray-900 rounded-lg overflow-hidden border border-gray-700 shadow-xl ${close ? "opacity-0 z-[-2]" : " "} ${fullscreen ? 'fixed top-0 left-0 w-screen z-50 h-screen p-4 bg-transparent': "w-full h-[500px] max-w-3xl"} `}>
             {/* Terminal header */}
             <div className="flex items-center justify-between px-4 py-3 bg-gray-800 border-b border-gray-700">
                 <div className="flex items-center space-x-2">
@@ -158,13 +163,10 @@ export default function AppTerminal() {
                 </div>
                 <div className="flex space-x-2">
                     <button className="text-gray-400 hover:text-gray-200">
-                        <FiMinus size={16} />
-                    </button>
-                    <button className="text-gray-400 hover:text-gray-200">
-                        <FiMaximize2 size={16} />
+                        <FiMaximize2 size={16} onClick={()=>{setFullscreen(!fullscreen)}} />
                     </button>
                     <button className="text-gray-400 hover:text-red-400">
-                        <FiX size={16} />
+                        <FiX size={16} onClick={(prev)=>setClose(!close)}/>
                     </button>
                 </div>
             </div>
@@ -232,4 +234,5 @@ export default function AppTerminal() {
             </div>
         </div>
     )
+      return fullscreen ? createPortal(content, document.body) : content;
 }
