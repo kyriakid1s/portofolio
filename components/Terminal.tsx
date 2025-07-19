@@ -51,6 +51,10 @@ const commands: Record<string, Command> = {
             '',
         ]
     },
+    clear: {
+        description: 'Contact information',
+        execute: () => 'CLEAR_TERMINAL'
+    },
     sudo: {
         description: 'Admin privileges',
         execute: () => 'Permission denied: Try "contact" instead 😊'
@@ -61,7 +65,8 @@ export default function AppTerminal() {
     const [input, setInput] = useState('')
     const [output, setOutput] = useState<TerminalOutput[]>([
         { text: 'Welcome to my developer terminal!', isCommand: false },
-        { text: 'Type "help" to begin', isCommand: false }
+        { text: 'Type "help" to begin', isCommand: false },
+        { text: 'Press Tab to auto complete commands', isCommand: false }
     ])
     const [suggestions, setSuggestions] = useState<string[]>([])
     const [isFocused, setIsFocused] = useState(false)
@@ -129,7 +134,7 @@ export default function AppTerminal() {
     }
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Tab' && suggestions.length > 0) {
+        if (e.key === 'Tab'  && suggestions.length > 0) {
             e.preventDefault()
             setInput(suggestions[0])
         } else if (e.key === 'ArrowUp' && input === '') {
@@ -149,7 +154,7 @@ export default function AppTerminal() {
             <div className="flex items-center justify-between px-4 py-3 bg-gray-800 border-b border-gray-700">
                 <div className="flex items-center space-x-2">
                     <FiTerminal className="text-green-400" />
-                    <span className="text-sm font-mono text-gray-300">dev-terminal</span>
+                    <span className="text-sm font-mono text-gray-300">terminal</span>
                 </div>
                 <div className="flex space-x-2">
                     <button className="text-gray-400 hover:text-gray-200">
@@ -183,7 +188,7 @@ export default function AppTerminal() {
 
                 {/* Input line */}
                 <form onSubmit={handleSubmit} className="flex items-start bottom-0 bg-gray-900/90 pt-2">
-                    <span className="text-green-400 mr-2 mt-1">$</span>
+                    <span className="text-green-400 mr-2 ">$</span>
                     <div className="flex-1 relative">
                         <input
                             ref={inputRef}
