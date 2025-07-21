@@ -20,10 +20,10 @@ export default function About() {
     ]
 
     return (
-        <div className="space-y-12">
+        <div className="space-y-12 max-w-full mx-auto">
             <section>
                 <h1 className="text-3xl font-bold mb-6">About Me</h1>
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 gap-8 text-pretty">
                     <div>
                         <p className="mb-4">
                             I'm a passionate backend developer with 5+ years of experience building

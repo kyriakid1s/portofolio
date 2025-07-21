@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, KeyboardEvent } from 'react'
-import { FiTerminal, FiX, FiMinus, FiMaximize2 } from 'react-icons/fi'
+import { FiTerminal, FiX, FiMaximize2 } from 'react-icons/fi'
 import { createPortal } from 'react-dom'
 
 type Command = {
@@ -166,7 +166,7 @@ export default function AppTerminal() {
                         <FiMaximize2 size={16} onClick={()=>{setFullscreen(!fullscreen)}} />
                     </button>
                     <button className="text-gray-400 hover:text-red-400">
-                        <FiX size={16} onClick={(prev)=>setClose(!close)}/>
+                        <FiX size={16} onClick={()=>setClose(!close)}/>
                     </button>
                 </div>
             </div>
@@ -200,7 +200,7 @@ export default function AppTerminal() {
                             onKeyDown={handleKeyDown}
                             onFocus={() => setIsFocused(true)}
                             onBlur={() => setIsFocused(false)}
-                            className="w-full bg-transparent border-none outline-none text-white caret-green-400"
+                            className="w-full bg-transparent  border-none outline-none text-white caret-green-400"
                             autoFocus
                             spellCheck="false"
                         />
