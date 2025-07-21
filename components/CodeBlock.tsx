@@ -20,8 +20,8 @@ export default function CodeBlock({ code, language, className = '' }: CodeBlockP
     }, [code])
 
     return (
-        <div className={`rounded-lg overflow-hidden border border-terminal-green/20 ${className}`}>
-            <pre className="m-0 p-4 bg-[#1E1E1E]">
+        <div className={`rounded-lg overflow-hidden border ${className}`}>
+            <pre className="m-0 bg-[#1E1E1E] overflow-x-auto text-wrap">
                 <code
                     ref={codeRef}
                     className={`hljs language-${language} text-sm`}

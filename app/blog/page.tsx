@@ -3,6 +3,7 @@ import { getSortedPostsData } from '@/lib/posts';
 
 export default function BlogListPage() {
     const posts = getSortedPostsData();
+    console.log(posts)
 
     return (
         <div className="max-w-2xl mx-auto py-8 px-4">
