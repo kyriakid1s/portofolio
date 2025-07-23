@@ -15,11 +15,11 @@ function downloadCV() {
 
 type Command = {
     description: string
-    execute: (args?: string[]) => string | string[] | ReactNode
+    execute: (args?: string[]) => string | string[]
 }
 
 type TerminalOutput = {
-    text: string | string[] | ReactNode
+    text: string | string[]
     isCommand: boolean
     isError?: boolean
 }
