@@ -1,16 +1,25 @@
 'use client'
 
-import { useState, useRef, useEffect, KeyboardEvent } from 'react'
+import { useState, useRef, useEffect, KeyboardEvent, ReactNode } from 'react'
 import { FiTerminal, FiX, FiMaximize2 } from 'react-icons/fi'
 import { createPortal } from 'react-dom'
 
+function downloadCV() {
+    const link = document.createElement('a')
+    link.href = '/cv.pdf'
+    link.download = 'cv.pdf'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+}
+
 type Command = {
     description: string
-    execute: (args?: string[]) => string | string[]
+    execute: (args?: string[]) => string | string[] | ReactNode
 }
 
 type TerminalOutput = {
-    text: string | string[]
+    text: string | string[] | ReactNode
     isCommand: boolean
     isError?: boolean
 }
@@ -51,6 +60,13 @@ const commands: Record<string, Command> = {
             'LinkedIn: linkedin.com/in/dimitriskyriakidiskortsekidis',
             '',
         ]
+    },
+    cv: {
+        description: 'Download CV',
+        execute: () => {
+            downloadCV();
+            return 'Downloading CV'
+        }
     },
     clear: {
         description: 'Contact information',
@@ -135,7 +151,7 @@ export default function AppTerminal() {
     }
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Tab'  && suggestions.length > 0) {
+        if (e.key === 'Tab' && suggestions.length > 0) {
             e.preventDefault()
             setInput(suggestions[0])
         } else if (e.key === 'ArrowUp' && input === '') {
@@ -154,7 +170,7 @@ export default function AppTerminal() {
 
 
     const content = (
-        <div className={`flex flex-col  bg-gray-900 rounded-lg overflow-hidden border border-gray-700 shadow-xl ${close ? "opacity-0 z-[-2]" : " "} ${fullscreen ? 'fixed top-0 left-0 w-screen z-50 h-screen p-4 bg-transparent': "w-full h-[500px] max-w-3xl"} `}>
+        <div className={`flex flex-col  bg-gray-900 rounded-lg overflow-hidden border border-gray-700 shadow-xl ${close ? "opacity-0 z-[-2]" : " "} ${fullscreen ? 'fixed top-0 left-0 w-screen z-50 h-screen p-4 bg-transparent' : "w-full h-[500px] max-w-3xl"} `}>
             {/* Terminal header */}
             <div className="flex items-center justify-between px-4 py-3 bg-gray-800 border-b border-gray-700">
                 <div className="flex items-center space-x-2">
@@ -163,10 +179,10 @@ export default function AppTerminal() {
                 </div>
                 <div className="flex space-x-2">
                     <button className="text-gray-400 hover:text-gray-200">
-                        <FiMaximize2 size={16} onClick={()=>{setFullscreen(!fullscreen)}} />
+                        <FiMaximize2 size={16} onClick={() => { setFullscreen(!fullscreen) }} />
                     </button>
                     <button className="text-gray-400 hover:text-red-400">
-                        <FiX size={16} onClick={()=>setClose(!close)}/>
+                        <FiX size={16} onClick={() => setClose(!close)} />
                     </button>
                 </div>
             </div>
@@ -234,5 +250,5 @@ export default function AppTerminal() {
             </div>
         </div>
     )
-      return fullscreen ? createPortal(content, document.body) : content;
+    return fullscreen ? createPortal(content, document.body) : content;
 }
