@@ -10,7 +10,7 @@ export default function Home() {
         <h2 className="text-2xl mb-6">Backend Developer</h2>
         <p className="mb-8">
           I build robust, scalable server-side applications and APIs.
-          Specializing in Node.js, Python, databases, and cloud infrastructure.
+          Specializing in Node.js, Python, Go, databases, and cloud infrastructure.
         </p>
         <div className="flex space-x-4">
           <a href="/projects"><button className="bg-terminal-green text-terminal-black px-4 py-2 rounded hover:bg-green-600 transition" >
