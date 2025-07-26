@@ -179,10 +179,10 @@ export default function AppTerminal() {
                 </div>
                 <div className="flex space-x-2">
                     <button className="text-gray-400 hover:text-gray-200">
-                        <FiMaximize2 size={16} onClick={() => { setFullscreen(!fullscreen) }} className='cursor-pointer' />
+                        <FiMaximize2 size={16} onClick={() => { setFullscreen(!fullscreen) }} className={`cursor-pointer ${close ? "hidden" : ""}`} />
                     </button>
                     <button className="text-gray-400 hover:text-red-400">
-                        <FiX size={16} onClick={() => setClose(!close)} className='cursor-pointer' />
+                        <FiX size={16} onClick={() => setClose(!close)} className={`cursor-pointer ${close ? "hidden" : ""}`} />
                     </button>
                 </div>
             </div>
