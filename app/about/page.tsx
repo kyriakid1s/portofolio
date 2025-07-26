@@ -99,6 +99,8 @@ async function developWithQuality() {
                                 <ul className="space-y-1">
                                     <li>Node.js/Express</li>
                                     <li>FastAPI/Django</li>
+                                    <li>Raect</li>
+                                    <li>Vue</li>
                                     <li>Next.js</li>
                                     <li>GraphQL</li>
                                 </ul>
