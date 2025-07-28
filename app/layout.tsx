@@ -2,6 +2,7 @@ import './globals.css'
 import { Roboto_Mono } from 'next/font/google'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { Analytics } from "@vercel/analytics/next"
 
 const robotoMono = Roboto_Mono({ subsets: ['latin'] })
 
@@ -16,6 +17,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-grow container mx-auto px-4 py-8">
           {children}
+          <Analytics />
         </main>
         <Footer />
       </body>

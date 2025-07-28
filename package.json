@@ -13,6 +13,7 @@
     "@next/mdx": "^15.3.5",
     "@types/highlight.js": "^9.12.4",
     "@types/nodemailer": "^6.4.17",
+    "@vercel/analytics": "^1.5.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "next": "15.3.5",
