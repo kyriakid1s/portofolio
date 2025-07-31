@@ -38,9 +38,6 @@ export default function BlogContent({ contentHtml }: BlogContentProps) {
         // Add heading IDs
         addHeadingIds();
 
-        // Store original title
-        const originalTitle = document.title;
-
         // Reading progress indicator
         const updateReadingProgress = () => {
             const scrollTop = window.scrollY;
@@ -54,28 +51,17 @@ export default function BlogContent({ contentHtml }: BlogContentProps) {
         // Initial progress calculation
         updateReadingProgress();
 
-        return () => {
-            window.removeEventListener('scroll', updateReadingProgress);
-        };
+        return () => window.removeEventListener('scroll', updateReadingProgress);
     }, [contentHtml]);
 
     return (
         <>
-            {/* Minimal Dot Progress Indicator */}
-            <div className="fixed top-4 right-4 z-50">
-                <div className="flex items-center space-x-2 bg-gray-800/80 backdrop-blur-sm rounded-full px-3 py-2 border border-gray-600/30">
-                    <div
-                        className="w-2 h-2 rounded-full bg-green-500 transition-all duration-300"
-                        style={{
-                            opacity: readingProgress > 0 ? 1 : 0.3,
-                            transform: `scale(${0.5 + (readingProgress / 100) * 0.5})`,
-                            boxShadow: readingProgress > 50 ? '0 0 8px rgba(34, 197, 94, 0.6)' : 'none'
-                        }}
-                    />
-                    <span className="text-xs text-gray-300 font-mono min-w-[3ch]">
-                        {Math.round(readingProgress)}%
-                    </span>
-                </div>
+            {/* Reading Progress Bar */}
+            <div className="fixed top-0 left-0  w-full h-1 bg-gray-800 z-50">
+                <div
+                    className="h-full  bg-gradient-to-r from-green-500 to-blue-500 transition-all duration-300 ease-out"
+                    style={{ width: `${readingProgress}%` }}
+                />
             </div>
 
             <div className="prose prose-lg prose-invert max-w-none blog-content prose-headings:text-gray-100 prose-p:text-gray-300 prose-strong:text-gray-100 prose-code:text-yellow-400 prose-pre:bg-gray-900 prose-blockquote:border-green-500">
