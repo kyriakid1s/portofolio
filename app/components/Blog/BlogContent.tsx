@@ -3,6 +3,13 @@
 import { useEffect, useState } from 'react';
 import hljs from 'highlight.js';
 
+// Configure highlight.js for better language detection
+hljs.configure({
+    ignoreUnescapedHTML: true,
+    throwUnescapedHTML: false,
+    languages: ['go', 'javascript', 'typescript', 'python', 'bash', 'json', 'yaml']
+});
+
 interface BlogContentProps {
     contentHtml: string;
 }
@@ -16,8 +23,6 @@ function generateSlug(text: string): string {
 }
 
 export default function BlogContent({ contentHtml }: BlogContentProps) {
-    const [readingProgress, setReadingProgress] = useState(0);
-
     useEffect(() => {
         // Add IDs to headings after the content is rendered
         const addHeadingIds = () => {
@@ -32,55 +37,67 @@ export default function BlogContent({ contentHtml }: BlogContentProps) {
             });
         };
 
-        // Highlight all code blocks after the content is rendered
-        hljs.highlightAll();
+        // Highlight code blocks with better timing
+        const highlightCode = () => {
+            // Find all code blocks that haven't been highlighted yet
+            const codeBlocks = document.querySelectorAll('.blog-content pre code:not([data-highlighted])');
 
-        // Add heading IDs
-        addHeadingIds();
+            codeBlocks.forEach((block) => {
+                try {
+                    const codeElement = block as HTMLElement;
+                    const codeText = codeElement.textContent || '';
 
-        // Store original title
-        const originalTitle = document.title;
+                    // Try to detect Go language patterns if no language is specified
+                    if (!codeElement.className.includes('language-') && !codeElement.className.includes('hljs')) {
+                        // Check for Go-specific patterns
+                        const goPatterns = [
+                            /\bfunc\s+\w+\s*\(/,           // function declarations
+                            /\btype\s+\w+\s+(struct|interface)/,  // type declarations
+                            /\bpackage\s+\w+/,            // package declarations
+                            /\bimport\s+[\"\(]/,          // import statements
+                            /\bgo\s+\w+\(/,               // goroutines
+                            /\bdefer\s+/,                 // defer statements
+                            /\bchan\s+/,                  // channels
+                            /\bselect\s*\{/,              // select statements
+                            /\binterface\s*\{/,           // interface definitions
+                            /fmt\.Print/,                 // common Go fmt usage
+                            /\berror\s*$/m,               // error type
+                            /\bnil\b/                     // nil keyword
+                        ];
 
-        // Reading progress indicator
-        const updateReadingProgress = () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            setReadingProgress(Math.min(100, Math.max(0, progress)));
+                        const isGoCode = goPatterns.some(pattern => pattern.test(codeText));
+
+                        if (isGoCode) {
+                            codeElement.className = 'language-go';
+                            console.log('Detected Go code, set language-go class');
+                        }
+                    }
+
+                    // Apply syntax highlighting
+                    hljs.highlightElement(codeElement);
+                    codeElement.setAttribute('data-highlighted', 'true');
+
+                    console.log(`Highlighted code block with classes: ${codeElement.className}`);
+                } catch (error) {
+                    console.error('Error highlighting code block:', error);
+                }
+            });
         };
 
-        window.addEventListener('scroll', updateReadingProgress);
-
-        // Initial progress calculation
-        updateReadingProgress();
+        // Use setTimeout to ensure DOM is fully rendered
+        const timeoutId = setTimeout(() => {
+            addHeadingIds();
+            highlightCode();
+        }, 100);
 
         return () => {
-            window.removeEventListener('scroll', updateReadingProgress);
+            clearTimeout(timeoutId);
         };
     }, [contentHtml]);
 
     return (
-        <>
-            {/* Minimal Dot Progress Indicator */}
-            <div className="fixed top-4 right-4 z-50">
-                <div className="flex items-center space-x-2 bg-gray-800/80 backdrop-blur-sm rounded-full px-3 py-2 border border-gray-600/30">
-                    <div
-                        className="w-2 h-2 rounded-full bg-green-500 transition-all duration-300"
-                        style={{
-                            opacity: readingProgress > 0 ? 1 : 0.3,
-                            transform: `scale(${0.5 + (readingProgress / 100) * 0.5})`,
-                            boxShadow: readingProgress > 50 ? '0 0 8px rgba(34, 197, 94, 0.6)' : 'none'
-                        }}
-                    />
-                    <span className="text-xs text-gray-300 font-mono min-w-[3ch]">
-                        {Math.round(readingProgress)}%
-                    </span>
-                </div>
-            </div>
-
-            <div className="prose prose-lg prose-invert max-w-none blog-content prose-headings:text-gray-100 prose-p:text-gray-300 prose-strong:text-gray-100 prose-code:text-yellow-400 prose-pre:bg-gray-900 prose-blockquote:border-green-500">
-                <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
-            </div>
-        </>
+        <div className="prose prose-lg prose-invert max-w-none blog-content prose-headings:text-gray-100 prose-p:text-gray-300 prose-strong:text-gray-100 prose-code:text-yellow-400 prose-pre:bg-gray-900 prose-blockquote:border-green-500">
+            <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+        </div>
     );
 }

@@ -13,10 +13,10 @@ export default function Home() {
           Specializing in Node.js, Python, Go, databases, and cloud infrastructure.
         </p>
         <div className="flex space-x-4">
-          <a href="/projects"><button className="bg-terminal-green text-terminal-black px-4 py-2 rounded hover:bg-green-600 transition" >
+          <a href="/projects"><button className="bg-terminal-green cursor-pointer text-terminal-black px-4 py-2 rounded hover:bg-green-600 transition" >
             View Projects
           </button></a>
-          <a href='/contact'><button className="border border-terminal-green px-4 py-2 rounded hover:bg-gray-500 transition">
+          <a href='/contact'><button className="border cursor-pointer border-terminal-green px-4 py-2 rounded hover:bg-gray-500 transition">
             Contact Me
           </button></a>
         </div>

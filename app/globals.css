@@ -153,9 +153,46 @@ body {
 
 .prose pre code {
   background: transparent !important;
-  color: #f3f4f6 !important;
+  color: #ffffff !important;
   padding: 0 !important;
   border: none !important;
+}
+
+/* Allow highlight.js to apply syntax colors while keeping base text white */
+.blog-content pre code.hljs {
+  color: #ffffff !important;
+  /* Base color for unhighlighted text */
+}
+
+/* Let highlight.js syntax colors override for specific elements */
+.blog-content pre code.hljs .hljs-keyword,
+.blog-content pre code.hljs .hljs-built_in,
+.blog-content pre code.hljs .hljs-type {
+  color: #569cd6 !important;
+  /* Blue for keywords */
+}
+
+.blog-content pre code.hljs .hljs-string,
+.blog-content pre code.hljs .hljs-literal {
+  color: #ce9178 !important;
+  /* Orange for strings */
+}
+
+.blog-content pre code.hljs .hljs-comment {
+  color: #6a9955 !important;
+  /* Green for comments */
+}
+
+.blog-content pre code.hljs .hljs-function,
+.blog-content pre code.hljs .hljs-title {
+  color: #dcdcaa !important;
+  /* Yellow for functions */
+}
+
+.blog-content pre code.hljs .hljs-variable,
+.blog-content pre code.hljs .hljs-params {
+  color: #9cdcfe !important;
+  /* Light blue for variables */
 }
 
 /* Enhanced headings */
