@@ -43,6 +43,21 @@ const projects = [
             </>),
         technologies: ["Go", "WebSockets", "Concurrent", "Postgres"],
         githubUrl: "https://github.com/kyriakid1s/chat-api",
+    },
+    {
+        title: "Rate Limiter - Token Bucket Algorithm",
+        description: (
+            <>
+                <p>An open source contribution in <a href="https://github.com/kashifkhan0771/utils" target="_blank" className='text-gray-400 underline hover:font-bold' >utils package</a> implementing a high-performance rate limiter using the token-bucket algorithm, built with Go for distributed systems, featuring:</p>
+                <ul>
+                    <li>- Token Bucket Algorithm: Efficient rate limiting with configurable burst capacity and refill rates for smooth traffic control.</li>
+                    <li>- Thread-Safe Design: Concurrent operations using Go's sync package, ensuring safe access in multi-threaded environments.</li>
+                    <li>- Production Ready: Comprehensive unit tests, benchmarks, and proper error handling for reliable performance in distributed systems.</li>
+                </ul>
+            </>
+        ),
+        technologies: ["Go", "Concurrency", "Algorithm Design", "Open Source"],
+        githubUrl: "https://github.com/kashifkhan0771/utils/tree/main/ratelimiter",
     }
 ]
 
